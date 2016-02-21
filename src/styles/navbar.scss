@@ -1,0 +1,32 @@
+ul.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+
+  background-color: white;
+
+  border-bottom: 1px solid #ccc;
+
+  z-index: 1000;
+
+  li {
+    margin-top:     20px;
+    margin-bottom:  20px;
+
+    font-size: 13px;
+
+    display: inline-block;
+    width: 250px;
+
+    &:hover {
+      transition: color 700;
+      color: #067081;
+    }
+  }
+}

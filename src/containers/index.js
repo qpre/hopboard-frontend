@@ -14,36 +14,20 @@ class IndexLayout extends Component {
     super(props);
   }
 
-  renderSessionButtons() {
-    if (this.props.loggedIn) {
-      return (<a onClick={goTo('/me')}>
-        Dashboard<i className='pe-7s-angle-right-circle'></i>
-      </a>);
-    }
-
-    return (<a onClick={goTo('/session/login')}>
-      sign in <i className='pe-7s-angle-right-circle'></i>
-    </a>);
-  }
-
   render() {
     return (
       <div className='animated centered-content fadeIn'>
         <div className='index-mast-head centered-content'>
-          <h1>Welcome on Phubo</h1>
-          <h3>All your photos, in one place</h3>
+          <h1>Welcome on HopBoard</h1>
+          <h3>Let us fly together</h3>
           <br/>
-          {this.renderSessionButtons()}
+          <a onClick={goTo('/missions')}>
+            Go to missions <i className='pe-7s-angle-right-circle'></i>
+          </a>
         </div>
       </div>
     );
   }
 }
 
-function mapState(state) {
-  return {
-    loggedIn: state.auth.loggedIn,
-  };
-}
-
-export default connect(mapState)(IndexLayout);
+export default connect(state => state)(IndexLayout);

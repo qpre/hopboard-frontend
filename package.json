@@ -34,7 +34,7 @@
     "css-loader": "^0.23.1",
     "eslint-loader": "^1.2.1",
     "eslint-plugin-flowtype": "^1.0.0",
-    "eslint-plugin-react": "^3.6.2",
+    "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",
     "google-closure-compiler": "^20160125.0.0",
     "grunt-eslint": "^17.3.1",

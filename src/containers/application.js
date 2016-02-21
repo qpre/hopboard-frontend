@@ -6,14 +6,18 @@ import '../styles/main.scss';
 import React, { Component }    from 'react';
 import { connect }             from 'react-redux';
 
-import Background from '../components/Background';
+import Background from '../components/background';
+import Navbar from '../components/navbar';
 
 class Application extends Component {
   render() {
     return (
       <div className='application'>
         <Background />
-        { this.props.children }
+        <Navbar />
+        <div className='content'>
+          { this.props.children }
+        </div>
       </div>
     );
   }
