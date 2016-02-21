@@ -1,0 +1,19 @@
+machine:
+  node:
+    version: 5.0.0
+
+dependencies:
+  override:
+    - npm install
+    - npm install -g qpre/s3-static-site-uploader
+
+test:
+  override:
+    - pwd
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run dist
+      - npm run deploy
