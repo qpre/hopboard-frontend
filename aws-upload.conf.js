@@ -1,5 +1,5 @@
 module.exports = {
-  bucketName:  'phubo',
+  bucketName:  'hopboard',
   patterns: [
     'dist/*.js',
     'assets/**/*',
