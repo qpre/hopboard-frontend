@@ -21,12 +21,28 @@ html, body {
 /* hand cursor on clickable input elements */
 label, input[type=button], input[type=submit], button { cursor: pointer; }
 
-html {
-  height: 100%;
+html, a {
+  height:       100%;
   font-style:   normal;
   font-family:  'Roboto', "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
-	color: #323639;
+	color:        #323639;
 	font-size:    12px;
+}
+
+a {
+	text-decoration: none;
+	font-size: 13px;
+
+	transition: color 700ms;
+
+	&:hover {
+		transition: color 700ms;
+		color: #067081;
+	}
+
+  &.active {
+    color: #067081;
+  }
 }
 
 html, body {

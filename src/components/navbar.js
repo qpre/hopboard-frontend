@@ -1,14 +1,7 @@
 import React, { Component }     from 'react';
-import { store }                from '../store';
-import { routeActions }         from 'react-router-redux';
+import { Link }                 from 'react-router';
 
 import '../styles/navbar.scss';
-
-function goTo(path) {
-  return () => {
-    store.dispatch(routeActions.push(path));
-  };
-}
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -18,8 +11,10 @@ export default class Navbar extends Component {
   render() {
     return (
       <ul className='menu'>
-        <li onClick={goTo('/missions')}>Missions</li>
-        <li>Users</li>
+        <li>
+          <Link to={'/missions'} activeClassName="active">Missions</Link>
+        </li>
+        <li><Link to={'/users'} activeClassName="active">Users</Link></li>
       </ul>
     );
   }

@@ -1,0 +1,32 @@
+.mission.modal {
+  position: fixed;
+
+  z-index: 2000;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  margin: auto;
+
+  height: 100%;
+  width:  100%;
+
+  .solid {
+    position: absolute;
+
+    background-color: white;
+
+    left:   0;
+    right:  0;
+    top:    50px;
+
+    margin: auto;
+
+    height: 400px;
+    width:  800px;
+  }
+}

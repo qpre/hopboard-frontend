@@ -19,16 +19,11 @@ ul.menu {
     margin-top:     20px;
     margin-bottom:  20px;
 
-    font-size: 13px;
-
     display: inline-block;
     width: 250px;
 
-    transition: color 700ms;
-
-    &:hover {
-      transition: color 700ms;
-      color: #067081;
+    a {
+      font-size: 13px;
     }
   }
 }
