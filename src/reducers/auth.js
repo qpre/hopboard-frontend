@@ -1,41 +1,49 @@
-import * as Actions from '../actions/auth';
+/*
+ * The reducer takes care of our data
+ * Using actions, we can change our application state
+ * To add a new action, add it to the switch statement in the homeReducer function
+ *
+ * Example:
+ * case YOUR_ACTION_CONSTANT:
+ *   return assign({}, state, {
+ *       stateVariable: action.var
+ *   });
+ */
 
-const defaultState = {
-  isFetching: false,
-  loggedIn:   false,
+import { CHANGE_FORM, SET_AUTH, SENDING_REQUEST } from '../actions/auth';
+import { auth } from '../utils/auth';
+
+// The initial application state
+const initialState = {
+  formState: {
+    username: '',
+    password: '',
+  },
+  currentlySending: false,
+  loggedIn: auth.loggedIn(),
 };
 
-function auth(state = defaultState, action) {
+// Takes care of changing the application state
+export function authentication(state = initialState, action) {
   switch (action.type) {
-    case Actions.LOGGED_IN:
+    case CHANGE_FORM:
       return {
         ...state,
-        isFetching: false,
-        loggedIn:   true,
+        formState: action.newState,
       };
-
-    case Actions.LOGGED_OUT:
+    case SET_AUTH:
       return {
         ...state,
-        isFetching: false,
-        loggedIn:   false,
+        loggedIn: action.newState,
       };
-
-    case Actions.LOG_IN:
+    case SENDING_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        currentlySending: action.sending,
       };
-
-    case Actions.LOG_OUT:
-      return {
-        ...state,
-        isFetching: true,
-      };
-
     default:
       return state;
   }
 }
 
-export default auth;
+export default authentication;

@@ -1,7 +1,8 @@
 import React, { Component }    from 'react';
 import { connect }             from 'react-redux';
-import { routeActions } from 'react-router-redux';
-import { store } from '../store';
+import { routeActions }        from 'react-router-redux';
+import { store }               from '../store';
+import { Link }                from 'react-router';
 
 function goTo(path) {
   return () => {
@@ -21,13 +22,29 @@ class IndexLayout extends Component {
           <h1>Welcome on HopBoard</h1>
           <h3>Let us fly together</h3>
           <br/>
-          <a onClick={goTo('/missions')}>
-            Go to missions <i className='pe-7s-angle-right-circle'></i>
-          </a>
+          {this.props.loggedIn ? (
+            <a onClick={goTo('/missions')}>
+              Go to missions <i className='pe-7s-angle-right-circle'></i>
+            </a>
+          ) : (
+            <div>
+              <Link to='/login' className='btn btn--login'>Login</Link>
+              <Link to='/register' className='btn btn--register'>Register</Link>
+            </div>
+          )
+          }
         </div>
       </div>
     );
   }
 }
 
-export default connect(state => state)(IndexLayout);
+function mapState(newProps) {
+  const { authentication } = newProps;
+
+  return {
+    loggedIn: authentication.loggedIn,
+  };
+}
+
+export default connect(mapState)(IndexLayout);

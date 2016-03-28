@@ -24,9 +24,11 @@
  */
 
 import bcrypt from 'bcryptjs';
-import auth from '../utils/auth';
+import { auth } from '../utils/auth';
 import genSalt from '../utils/salt';
 import { browserHistory } from 'react-router';
+import { store } from '../store';
+import { routeActions } from 'react-router-redux';
 
 export const SET_AUTH         = 'SET_AUTH';
 export const CHANGE_FORM      = 'CHANGE_FORM';
@@ -45,7 +47,7 @@ export function login(username, password) {
     // If no username or password was specified, throw a field-missing error
     if (anyElementsEmpty({ username, password })) {
       requestFailed({
-        type: "field-missing"
+        type: 'field-missing',
       });
       dispatch(sendingRequest(false));
       return;
@@ -57,28 +59,28 @@ export function login(username, password) {
       // Something wrong while hashing
       if (err) {
         requestFailed({
-          type: 'failed'
+          type: 'failed',
         });
         return;
       }
       // Use auth.js to fake a request
-      auth.login(username, hash, (success, err) => {
+      auth.login(username, hash, (success, error) => {
         // When the request is finished, hide the loading indicator
         dispatch(sendingRequest(false));
         dispatch(setAuthState(success));
         if (success === true) {
           // If the login worked, forward the user to the dashboard and clear the form
-          forwardTo('/dashboard');
+          forwardTo('/missions');
           dispatch(changeForm({
-            username: "",
-            password: ""
+            username: '',
+            password: '',
           }));
         } else {
-          requestFailed(err);
+          requestFailed(error);
         }
       });
     });
-  }
+  };
 }
 
 /**
@@ -96,7 +98,7 @@ export function logout() {
         requestFailed(err);
       }
     });
-  }
+  };
 }
 
 /**
@@ -112,7 +114,7 @@ export function register(username, password) {
     // If no username or password was specified, throw a field-missing error
     if (anyElementsEmpty({ username, password })) {
       requestFailed({
-        type: "field-missing"
+        type: 'field-missing',
       });
       dispatch(sendingRequest(false));
       return;
@@ -124,12 +126,12 @@ export function register(username, password) {
       // Something wrong while hashing
       if (err) {
         requestFailed({
-          type: 'failed'
+          type: 'failed',
         });
         return;
       }
       // Use auth.js to fake a request
-      auth.register(username, hash, (success, err) => {
+      auth.register(username, hash, (success, error) => {
         // When the request is finished, hide the loading indicator
         dispatch(sendingRequest(false));
         dispatch(setAuthState(success));
@@ -137,15 +139,15 @@ export function register(username, password) {
           // If the register worked, forward the user to the homepage and clear the form
           forwardTo('/dashboard');
           dispatch(changeForm({
-            username: "",
-            password: ""
+            username: '',
+            password: '',
           }));
         } else {
-          requestFailed(err);
+          requestFailed(error);
         }
       });
     });
-  }
+  };
 }
 
 /**
@@ -181,11 +183,11 @@ export function sendingRequest(sending) {
  * @param {string} location The route the user should be forwarded to
  */
 function forwardTo(location) {
-  console.log('forwardTo(' + location + ')');
-  browserHistory.pushState(location);
+  console.log(`forwardTo(${location}`);
+  store.dispatch(routeActions.push(location));
 }
 
-let lastErrType = "";
+let lastErrType = '';
 
 /**
  * Called when a request failes
@@ -199,7 +201,7 @@ function requestFailed(err) {
   // And add the respective classes
   form.classList.add('js-form__err');
   form.classList.add('js-form__err-animation');
-  form.classList.add('js-form__err--' + err.type);
+  form.classList.add(`js-form__err--${err.type}`);
   lastErrType = err.type;
   // Remove the animation class after the animation is finished, so it
   // can play again on the next error
@@ -213,7 +215,7 @@ function requestFailed(err) {
  */
 function removeLastFormError() {
   const form = document.querySelector('.form-page__form-wrapper');
-  form.classList.remove('js-form__err--' + lastErrType);
+  form.classList.remove(`js-form__err--${lastErrType}`);
 }
 
 /**
@@ -222,7 +224,7 @@ function removeLastFormError() {
  * @return {boolean}         True if there are empty elements, false if there aren't
  */
 function anyElementsEmpty(elements) {
-  for (let element in elements) {
+  for (const element in elements) {
     if (!elements[element]) {
       return true;
     }
